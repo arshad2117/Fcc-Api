@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+	<style>
+	.whole {
+    	background-color: black;
+	}
+	.btn:active,.btn:focus{
+		outline: 0 !important;
+	}
+	#quote{
+		font-size: 30px;
+		color: white;
+		font-family: 'Slabo 27px', serif;
+		padding-top: 250px;
+	}
+	.twitter-share-button{
+		color: white;
+	}
+	
+	</style>
+    <title>Random Quote</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+    <script>
+    	$(document).ready(function(){
+			$.getJSON("https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&mashape-key=VWB3x0Q5oPmshzJmv9YYVNBmoDu7p1f97j8jsn9ZSFGmtKRud1",function(json){
+				$("#quote").hide();
+				$("#quote").html(json.quote+"<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;-"+json.author);
+				$("#quote").fadeIn(100);		
+				var text=json.quote+"-"+json.author;
+				var fin=encodeURI(text);
+				$("a").attr("href","https://twitter.com/intent/tweet?text="+text);			
+			});
+			
+		    $("button").click(function(){
+		  		$("button").animate({top: '+=10'});
+		  		$("button").animate({top: '-=10'});
+				$("#quote").animate({bottom: '-=250'},"slow");	
+						
+				$("#quote").promise().done(function(){			
+					$("#quote").fadeOut(100,function(){
+					$("#quote").animate({bottom: '+=450'});});
+					
+				});
+				//$("#quote").animate({bottom: "-=500","slow"});
+				//$("#quote").animate({bottom: '+=1000'},"slow");
+				//$("#quote").hide();
+				//
+				
+		    	$.getJSON("https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&mashape-key=VWB3x0Q5oPmshzJmv9YYVNBmoDu7p1f97j8jsn9ZSFGmtKRud1",function(json){
+					//$("#quote").animate({bottom: '-=500'});
+					$(":animated").promise().done(function(){
+				$("#quote").html(json.quote+"<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;-"+json.author);
+				var text=json.quote+"-"+json.author;
+				var fin=encodeURI(text);
+				$("a").attr("href","https://twitter.com/intent/tweet?text="+text);	
+				$("#quote").fadeIn(100);
+				$("#quote").animate({bottom: "-=200"});
+						
+					});
+															
+					//	$("#quote").animate({bottom: '-=500'});
+		    	});
+		    });
+		});
+   	</script>
+</head>
+<body class="whole" >
+<div class='container-fluid text-center'>
+	<div class="row">
+		<div class="col-md-9">
+			<p id="quote" style="position: relative;">
+			</p>
+		</div>
+		<div class="col-md-3" >
+		<div style="padding-top: 200px ">
+		<button class="btn btn-dark" style="background-color: black; margin:0; position: relative;">
+			<img src="images/down.jpeg" style="height: 100px; width: 100px;">
+		</button>
+		</div>
+		<div style="padding-top: 50px">
+		<a href="https://twitter.com/intent/tweet?text=Hello%20world" class="twitter-share-button" style="padding-top: 80px"><img src="images/tweet.png" style="height: 40px; width: 40px;"></img></a>
+		</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

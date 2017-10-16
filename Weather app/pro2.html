@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+   <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+   	<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<style>
+	body{
+		background-color: black;
+	}
+	.printer{
+		color: white;
+		font-size: 50px;
+		padding-top: 50px;
+		font-family: 'Bitter', serif;
+	}
+	.place{
+		color: white	;
+		font-size: 40px;
+		font-family: 'Bitter', serif;
+	}
+	.tit{
+		color: white;
+		font-size: 60px;
+		font-family: 'Bitter', serif;
+	}
+	.bt{
+		color: black;
+		background-color: white !important;
+		outline: 0 !important;
+		border: 0!important;
+		font-family: 'Bitter', serif;
+	}
+	.bt:hover{
+		color: black;
+	}
+	.bt:focus{
+		color: black;
+	}
+	img{
+		padding-top: 30px;
+	}
+</style>
+<script>
+	$(document).ready(function(){
+		var temp=0;
+		var temp2=Math.floor((9.0/5.0)*temp+32);
+		var cond="";
+		var tog=1;
+		$(".bt").hide();
+		$(".bt").click(function(){
+			if(tog==1){
+				$(".printer").html("&nbsp;"+temp+"&deg; C  <br>");
+				tog=1-tog;
+			}
+			else{
+				$(".printer").html("&nbsp;"+temp2+"&deg; F  <br>");
+				tog=1-tog;
+			}
+
+		})
+		if(navigator.geolocation){
+			navigator.geolocation.getCurrentPosition(function(position){
+			//$(".printer").html(position.coords.longitude + "  " + position.coords.latitude);
+				var st="https://fcc-weather-api.glitch.me/api/current?lat="+position.coords.latitude				+"&lon="+position.coords.longitude;
+				$.getJSON(st,function(data){
+						temp = data.main.temp;
+						//data.weather.forEach(function(val){
+						//	cond+=val.main;
+						//});
+						for(var i=0;i<data.weather.length;i++){
+							cond+=data.weather[i].main;
+						}
+						temp2=Math.floor((9.0/5.0)*temp+32);
+						//$(".printer").html(temp);	
+						$(".txt").hide();	
+						$(".printer").html("&nbsp;"+temp+"&deg; C  <br>");
+						$(".place").html(data.name+", "+data.sys.country+"<br>"+cond);
+						$(".tit").html("WeatherMania");
+						$(".txt").fadeIn(500);
+						$(".bt").fadeIn(500);
+						switch(cond){
+							case "Clouds": $("img").attr("src","https://media.giphy.com/media/G1T5M0qT6ZJlu/			giphy-downsized.gif");
+											break;
+							case "Rain": $("img").attr("src","https://media.giphy.com/media/3og0IOUWB5AZoP6la0/giphy-downsized.gif");
+											break;
+							case "Sunny": $("img").attr("src","https://media.giphy.com/media/10d3NDzD40xb0s/			giphy-downsized.gif");
+											break;
+							case "Snow": $("img").attr("src","https://media.giphy.com/media/RWJPtq90qOA4E/giphy-downsized.gif");
+											break;
+							default: 	$("img").attr("src","https://media.giphy.com/media/m1J6Fa1nqUeiI/giphy-downsized.gif");
+						}	
+						/*
+						if(cond=="Clouds"){
+							$("img").attr("src","https://media.giphy.com/media/G1T5M0qT6ZJlu/giphy-downsized.gif");
+						}
+						else if(cond=="Rain"){
+							$("img").attr("src","https://media.giphy.com/media/m1J6Fa1nqUeiI/giphy-downsized.gif");
+						}
+						else if(cond=="Sunny"){
+							$("img").attr("src","https://media.giphy.com/media/10d3NDzD40xb0s/giphy-downsized.gif");
+						}
+						*/
+					});
+			});
+		}
+	});
+</script>
+<body>
+<div class='container-fluid text-center'>
+	<div class="txt">
+		<div class="tit">
+		</div>	
+		<div class="printer" align="center">
+		</div>
+		<button class=" btn btn-primary bt">
+			Change
+		</button>
+		<div class="place">
+		</div>
+		<img>
+	</div>
+</div>
+
+</body>
+</html>
