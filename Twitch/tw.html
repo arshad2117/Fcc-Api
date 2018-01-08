@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ARSHAD'S WEBSITE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <script>
+    	$(document).ready(function(){
+    		$("#abtn").hide();
+	    	$.getJSON("https://wind-bow.glitch.me/twitch-api/streams/freecodecamp",function(json){
+				if(json.stream === null){
+					$(".bt1").append("<p class='stxt' style='margin-top: 25px'>STATUS: OFFLINE</p>");
+				}	
+				else{
+					$(".bt2").append("<p class='stxt' >Game: "+ json.stream.game+"</p>");
+					$(".bt2").append("<p class='stxt' >Viewers: "+ json.stream.viewers+"</p>");	
+					$(".bt2").append("<p class='stxt' >Language: "+ json.stream.channel.language+"</p>");
+				}
+			});
+			$.getJSON("https://wind-bow.glitch.me/twitch-api/streams/gamesdonequick",function(json){
+				if(json.stream === null){
+					$(".bt2").append("<p class='stxt' style='margin-top: 25px'>STATUS: OFFLINE</p>");
+				}	
+				else{
+					$(".bt2").append("<p class='stxt' >Game: "+ json.stream.game+"</p>");
+					$(".bt2").append("<p class='stxt' >Viewers: "+ json.stream.viewers+"</p>");	
+					$(".bt2").append("<p class='stxt' >Language: "+ json.stream.channel.language+"</p>");
+				}
+			});
+			$.getJSON("https://wind-bow.glitch.me/twitch-api/streams/c9sneaky",function(json){
+				if(json.stream === null){
+					$(".bt3").append("<p class='stxt' style='margin-top: 25px'>STATUS: OFFLINE</p>");
+				}	
+				else{
+					$(".bt3").append("<p class='stxt' >Game: "+ json.stream.game+"</p>");
+					$(".bt3").append("<p class='stxt' >Viewers: "+ json.stream.viewers+"</p>");	
+					$(".bt3").append("<p class='stxt' >Language: "+ json.stream.channel.language+"</p>");
+				}
+			});
+			$("#abtn").fadeIn(1000);
+		});
+		</script>
+	<style>
+		.btn{
+			height: 190px;
+			width: 500px;
+			margin-top: 20px;
+			background-color: #FF005F;
+			outline: none;
+			border-radius: 3%;
+			border: none;
+		}
+		.btn:hover{
+			background-color: #FF50AF;
+		}
+		body{
+			background-color: #4682A4;
+		}
+		.btxt{
+			font-size: 24px;
+			margin-right: 25px;
+			margin-top: -10px;
+			font-family: 'Poiret One', cursive;
+		}
+		.stxt{
+			font-size: 20px;
+			margin-right: 25px;
+			margin-top: -10px;
+			font-family: 'Poiret One', cursive;
+		}
+	</style>
+</head>
+
+<body>
+<div class='container-fluid text-center'>
+	<div id="abtn">
+		<a href="https://www.twitch.tv/freecodecamp">
+		<button class="btn btn-primary">
+			<div class="row">
+				<div class="col-md-4">
+				<img height="130" src="images/fcc.png">
+				</div>
+				<div class="col-md-4 bt1">
+					<p class="btxt" >FREE CODE CAMP</p>
+				</div>
+			</div>	
+		</button>
+		</a>
+		<br>
+		<a href="https://www.twitch.tv/gamesdonequick">
+		<button class="btn btn-primary">
+			<div class="row">
+				<div class="col-md-4">
+				<img height="130" src="images/gdq.png">
+				</div>
+				<div class="col-md-4 bt2">
+					<p class="btxt" >GAMES DONE QUICK</p>
+				</div>
+			</div>	
+		</button>
+		</a>
+		<br>
+		<a href="https://www.twitch.tv/c9sneaky">
+		<button class="btn btn-primary">
+			<div class="row">
+				<div class="col-md-4">
+				<img height="130" src="images/c9s.png">
+				</div>
+				<div class="col-md-4 bt3">
+					<p class="btxt" >C9 SNEAKY</p>
+				</div>
+			</div>	
+		</button>
+		</a>
+	</div>
+</div>
+
+</body>
+</html>
